@@ -7,7 +7,10 @@
       "sharedGlobals"
     ],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/**/*.Tests/**/*",
+      "!{projectRoot}/**/bin/**/*",
+      "!{projectRoot}/**/obj/**/*"
     ],
     "sharedGlobals": []
   },
@@ -28,6 +31,12 @@
         "default",
         "^production"
       ]
+    },
+    "build": {
+      "dependsOn": [
+        "...",
+        "restore"
+      ]
     }
   },
   "plugins": [
@@ -42,7 +51,8 @@
       "options": {
         "targetName": "e2e"
       }
-    }
+    },
+    "@nx/dotnet"
   ],
   "generators": {
     "@nx/angular:application": {

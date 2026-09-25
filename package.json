@@ -2,7 +2,9 @@
   "name": "@find-my-pet/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev-dotnet": "nx run-many -t serve -p web dotnet-api"
+  },
   "private": true,
   "devDependencies": {
     "@angular-devkit/core": "~22.1.0",
@@ -13,6 +15,7 @@
     "@angular/language-service": "~22.1.0",
     "@nx/angular": "23.2.1",
     "@nx/devkit": "23.2.1",
+    "@nx/dotnet": "23.2.1",
     "@nx/js": "23.2.1",
     "@nx/oxlint": "23.2.1",
     "@nx/playwright": "23.2.1",

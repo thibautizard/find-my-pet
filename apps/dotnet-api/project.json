@@ -1,0 +1,15 @@
+  {
+     "$schema": "../../node_modules/nx/schemas/project-schema.json",
+     "name": "dotnet-api",
+     "targets": {
+       "serve": {
+         "continuous": true,
+         "dependsOn": ["restore"],
+         "command": "dotnet watch --non-interactive",
+         "options": {
+           "cwd": "apps/dotnet-api",
+           "env": { "DOTNET_WATCH_RESTART_ON_RUDE_EDIT": "true" }
+         }
+       }
+     }
+   }
