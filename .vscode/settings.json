@@ -1,5 +1,6 @@
 {
   "editor.formatOnSave": true,
+  "dotnet.defaultSolution": "find-my-pet.sln",
   "[csharp]": {
     "editor.defaultFormatter": "csharpier.csharpier-vscode"
   }
