@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev-dotnet": "nx run-many -t serve -p web dotnet-api"
+    "dev-dotnet": "nx run-many -t serve -p web dotnet-api",
+    "gc": "f() { p=$1; shift; nx g @nx/angular:component \"apps/web/src/app/$p/$(basename \"$p\")\" \"$@\"; }; f"
   },
   "private": true,
   "devDependencies": {
