@@ -55,3 +55,5 @@ animalRoute.MapPost(
 );
 
 app.Run();
+
+public partial class Program { }
