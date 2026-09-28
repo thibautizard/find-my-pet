@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TheAnimalsAPI.Animals;
 
 var builder = WebApplication.CreateBuilder(args);
 var animals = new List<Animal>
@@ -13,8 +14,6 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-var animalRoute = app.MapGroup("animals");
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -23,11 +22,13 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+var animalRoute = app.MapGroup("animals");
+
 animalRoute.MapGet(
   string.Empty,
   () =>
   {
-    return Results.Ok(animals);
+    return Results.Ok(animals.Select(animal => new GetAnimalResponse { Name = animal.Name }));
   }
 );
 
@@ -40,17 +41,17 @@ animalRoute.MapGet(
     {
       return Results.NotFound();
     }
-    return Results.Ok(animal);
+    return Results.Ok(new GetAnimalResponse { Name = animal.Name });
   }
 );
 
 animalRoute.MapPost(
   string.Empty,
-  ([FromBody] Animal animal, HttpContext context) =>
+  ([FromBody] CreateAnimalRequest animal, HttpContext context) =>
   {
-    animal.Id = animals.Max(e => e.Id) + 1;
-    animals.Add(animal);
-    return Results.Created($"/animals/${animal.Id}", animal);
+    var newAnimal = new Animal { Id = animals.Max(e => e.Id) + 1, Name = animal.Name };
+    animals.Add(newAnimal);
+    return Results.Created($"/animals/${newAnimal.Id}", animal);
   }
 );
 

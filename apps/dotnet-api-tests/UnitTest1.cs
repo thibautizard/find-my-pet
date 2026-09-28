@@ -52,4 +52,12 @@ public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
     var response = await client.PutAsJsonAsync("/animals/999999", new Animal { Name = "Lily" });
     Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
   }
+
+  [Fact]
+  public async Task UpdateAnimal_ReturnsUpdateAnimal()
+  {
+    var client = _factory.CreateClient();
+    var response = await client.PutAsJsonAsync("/animals/1", new Animal { Name = "Lily" });
+    response.EnsureSuccessStatusCode();
+  }
 }
