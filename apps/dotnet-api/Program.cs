@@ -54,6 +54,22 @@ animalRoute.MapPost(
   }
 );
 
+animalRoute.MapPut(
+  "{id:int}",
+  ([FromBody] Animal animal, int id) =>
+  {
+    var existingAnimal = animals.SingleOrDefault(e => e.Id == id);
+    if (existingAnimal == null)
+    {
+      return Results.NotFound();
+    }
+
+    existingAnimal.Name = animal.Name;
+
+    return Results.Ok(existingAnimal);
+  }
+);
+
 app.Run();
 
 public partial class Program { }
