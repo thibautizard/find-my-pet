@@ -23,7 +23,8 @@
           }
         ],
         "styles": [
-          "apps/web/src/styles.css"
+          "apps/web/src/styles/material-theme.scss",
+          "apps/web/src/styles/tailwind.css"
         ],
         "server": "apps/web/src/main.server.ts",
         "ssr": {
