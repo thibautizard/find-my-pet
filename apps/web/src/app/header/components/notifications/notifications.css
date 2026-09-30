@@ -1,1 +1,9 @@
+/* Anchor on the icon, not the host: the button's 48px touch area would push the dot off the bell. */
+mat-icon {
+  anchor-name: --bell-anchor;
+}
 
+.target {
+  position-anchor: --bell-anchor;
+  position-area: top right;
+}

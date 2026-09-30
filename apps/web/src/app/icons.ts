@@ -1,12 +1,12 @@
 import { EnvironmentProviders, inject, provideAppInitializer } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
-import { mdiAccountCircle, mdiBell, mdiPaw } from '@mdi/js';
+import { mdiAccountCircle, mdiBellOutline, mdiPaw } from '@mdi/js';
 
 // Register MDI icons here; use them with <mat-icon svgIcon="name" />
 const icons = {
   paw: mdiPaw,
-  bell: mdiBell,
+  bellOutline: mdiBellOutline,
   'account-circle': mdiAccountCircle,
 };
 

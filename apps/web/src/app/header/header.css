@@ -1,1 +1,25 @@
+/*
+ * Material styles are unlayered, so they beat Tailwind utilities: style the
+ * toolbar through its tokens and plain component CSS instead of classes.
+ */
+mat-toolbar {
+  --mat-toolbar-container-background-color: var(--mat-sys-primary);
+  --mat-toolbar-container-text-color: var(--mat-sys-on-primary);
+  --mat-toolbar-standard-height: auto;
+  --mat-toolbar-mobile-height: auto;
 
+  /* The toolbar forces title-large on any h1 inside it; keep the logo's own type. */
+  --mat-toolbar-title-text-font: var(--mat-sys-body-medium-font);
+  --mat-toolbar-title-text-size: 1.25rem;
+  --mat-toolbar-title-text-line-height: 1;
+  --mat-toolbar-title-text-weight: 700;
+  --mat-toolbar-title-text-tracking: normal;
+
+  /* Icon buttons default to on-surface colours, which disappear on the primary background. */
+  --mat-icon-button-icon-color: var(--mat-sys-on-primary);
+  --mat-icon-button-state-layer-color: var(--mat-sys-on-primary);
+  --mat-icon-button-ripple-color: color-mix(in srgb, var(--mat-sys-on-primary) 12%, transparent);
+
+  justify-content: space-between;
+  padding: 2rem 1.5rem;
+}
