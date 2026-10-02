@@ -1,42 +1,53 @@
-
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
 // Learn more about theming and how to use it for your application's
 // custom components at https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 // Palettes generated from the brand colours by `nx g @angular/material:theme-color`.
 // Secondary and neutral are baked into these palettes.
-@use './theme-colors' as theme;
+@use "./theme-colors" as theme;
 
 html {
   height: 100%;
-  @include mat.theme((
-    color: (
-      primary: theme.$primary-palette,
-      tertiary: theme.$tertiary-palette,
-    ),
-    typography: (
-      plain-family: ('Inter', sans-serif),
-      brand-family: ('Plus Jakarta Sans', sans-serif),
-    ),
-    density: 0,
-  ));
+  @include mat.theme(
+    (
+      color: (
+        primary: theme.$primary-palette,
+        tertiary: theme.$tertiary-palette,
+      ),
+      typography: (
+        plain-family: (
+          "Inter",
+          sans-serif,
+        ),
+        brand-family: (
+          "Plus Jakarta Sans",
+          sans-serif,
+        ),
+      ),
+      density: 0,
+    )
+  );
 
   // mat.theme() only takes two families: brand (display/headline/title) and
   // plain (body/label). Point the label tokens at the brand font as well.
-  @include mat.theme-overrides((
-    label-large-font: var(--mat-sys-headline-large-font),
-    label-medium-font: var(--mat-sys-headline-large-font),
-    label-small-font: var(--mat-sys-headline-large-font),
-  ));
+  @include mat.theme-overrides(
+    (
+      label-large-font: var(--mat-sys-headline-large-font),
+      label-medium-font: var(--mat-sys-headline-large-font),
+      label-small-font: var(--mat-sys-headline-large-font),
+    )
+  );
 
   // M3 derives the secondary role from tone 40 of the palette (#bb1522), not
   // the brand colour itself. Pin light mode to the exact brand secondary and
   // keep the generated dark-mode value.
-  @include mat.theme-overrides((
-    secondary: light-dark(#e5383b, #ffb3ae),
-  ));
+  @include mat.theme-overrides(
+    (
+      secondary: light-dark(#e5383b, #ffb3ae),
+    )
+  );
 }
 
 body {

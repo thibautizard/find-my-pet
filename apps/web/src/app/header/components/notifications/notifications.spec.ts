@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Notifications } from './notifications';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { Notifications } from "./notifications";
 
-describe('Notifications', () => {
+describe("Notifications", () => {
   let component: Notifications;
   let fixture: ComponentFixture<Notifications>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Notifications]
+      imports: [Notifications],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Notifications);
@@ -15,7 +15,7 @@ describe('Notifications', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

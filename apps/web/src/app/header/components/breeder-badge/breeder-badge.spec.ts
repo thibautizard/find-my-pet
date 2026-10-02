@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BreederBadge } from './breeder-badge';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { BreederBadge } from "./breeder-badge";
 
-describe('BreederBadge', () => {
+describe("BreederBadge", () => {
   let component: BreederBadge;
   let fixture: ComponentFixture<BreederBadge>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BreederBadge]
+      imports: [BreederBadge],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BreederBadge);
@@ -15,7 +15,7 @@ describe('BreederBadge', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

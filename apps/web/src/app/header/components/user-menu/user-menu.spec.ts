@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UserMenu } from './user-menu';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { UserMenu } from "./user-menu";
 
-describe('UserMenu', () => {
+describe("UserMenu", () => {
   let component: UserMenu;
   let fixture: ComponentFixture<UserMenu>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserMenu]
+      imports: [UserMenu],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserMenu);
@@ -15,7 +15,7 @@ describe('UserMenu', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

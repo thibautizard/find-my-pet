@@ -1,13 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Header } from './header';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { Header } from "./header";
 
-describe('Header', () => {
+describe("Header", () => {
   let component: Header;
   let fixture: ComponentFixture<Header>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Header]
+      imports: [Header],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Header);
@@ -15,7 +15,7 @@ describe('Header', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
