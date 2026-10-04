@@ -1,0 +1,15 @@
+:host {
+  --mat-button-filled-container-color: var(--mat-sys-on-primary); /* white bg */
+  --mat-button-filled-label-text-color: var(--mat-sys-primary); /* red text */
+
+  --mat-button-filled-icon-spacing: 6px;
+
+  --mat-button-filled-label-text-size: 0.8rem;
+  --mat-button-filled-horizontal-padding: 20px;
+  --mat-button-filled-container-height: 32px;
+}
+
+button > mat-icon.mat-icon {
+  width: 15px;
+  height: 15px;
+}
