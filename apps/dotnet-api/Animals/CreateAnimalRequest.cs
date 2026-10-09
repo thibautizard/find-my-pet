@@ -4,6 +4,6 @@ namespace TheAnimalsAPI.Animals;
 
 public class CreateAnimalRequest
 {
-  [Required]
-  public required string Name { get; set; }
+  [Required(AllowEmptyStrings = false)]
+  public string? Name { get; set; }
 }

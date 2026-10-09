@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace dotnet_api_tests;
@@ -43,6 +44,10 @@ public class BasicTests : IClassFixture<WebApplicationFactory<Program>>
     var client = _factory.CreateClient();
     var response = await client.PostAsJsonAsync("/animals", new { });
     Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+    var problemDetails = await response.Content.ReadFromJsonAsync<ValidationProblemDetails>();
+    Assert.NotNull(problemDetails);
+    Assert.Contains("Name", problemDetails.Errors.Keys);
   }
 
   [Fact]

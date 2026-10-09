@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using FindMyPet.Api;
 using FindMyPet.Api.Abstractions;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSingleton<IRepository<Animal>, AnimalRepository>();
+builder.Services.AddProblemDetails();
+builder.Services.AddValidation();
 
 var app = builder.Build();
 
@@ -52,15 +55,32 @@ animalRoute.MapPost(
     [FromServices] IRepository<Animal> repository
   ) =>
   {
-    var newAnimal = new Animal { Name = animalRequest.Name };
+    var validationProblems = new List<ValidationResult>();
+    var isValid = Validator.TryValidateObject(
+      animalRequest,
+      new ValidationContext(animalRequest),
+      validationProblems,
+      true
+    );
+
+    if (!isValid)
+    {
+      return Results.BadRequest(validationProblems);
+    }
+
+    var newAnimal = new Animal { Name = animalRequest.Name! };
     repository.Create(newAnimal);
-    return Results.Created($"/animals/${newAnimal.Id}", animalRequest);
+    return Results.Created($"/animals/{newAnimal.Id}", animalRequest);
   }
 );
 
 animalRoute.MapPut(
   "{id:int}",
-  ([FromBody] Animal animalRequest, int id, [FromServices] IRepository<Animal> repository) =>
+  (
+    [FromBody] UpdateAnimalRequest animalRequest,
+    int id,
+    [FromServices] IRepository<Animal> repository
+  ) =>
   {
     var animals = repository.GetAll();
     var existingAnimal = animals.SingleOrDefault(e => e.Id == id);
@@ -77,5 +97,3 @@ animalRoute.MapPut(
 );
 
 app.Run();
-
-public partial class Program { }
