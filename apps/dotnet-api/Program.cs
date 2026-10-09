@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using FindMyPet.Api;
 using FindMyPet.Api.Abstractions;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using TheAnimalsAPI.Animals;
 
@@ -12,6 +13,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSingleton<IRepository<Animal>, AnimalRepository>();
 builder.Services.AddProblemDetails();
 builder.Services.AddValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 var app = builder.Build();
 
@@ -49,23 +51,18 @@ animalRoute.MapGet(
 
 animalRoute.MapPost(
   string.Empty,
-  (
+  async (
     [FromBody] CreateAnimalRequest animalRequest,
     HttpContext context,
-    [FromServices] IRepository<Animal> repository
+    [FromServices] IRepository<Animal> repository,
+    IValidator<CreateAnimalRequest> validator
   ) =>
   {
-    var validationProblems = new List<ValidationResult>();
-    var isValid = Validator.TryValidateObject(
-      animalRequest,
-      new ValidationContext(animalRequest),
-      validationProblems,
-      true
-    );
+    var validationResults = await validator.ValidateAsync(animalRequest);
 
-    if (!isValid)
+    if (!validationResults.IsValid)
     {
-      return Results.BadRequest(validationProblems);
+      return Results.ValidationProblem(validationResults.ToDictionary());
     }
 
     var newAnimal = new Animal { Name = animalRequest.Name! };
