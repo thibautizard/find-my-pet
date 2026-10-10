@@ -48,6 +48,13 @@ html {
       secondary: light-dark(#e5383b, #ffb3ae),
     )
   );
+
+  // Light-mode surface is neutral tone 98 (#fbf8ff); use plain white instead.
+  @include mat.theme-overrides(
+    (
+      surface: light-dark(#ffffff, #101225),
+    )
+  );
 }
 
 body {
