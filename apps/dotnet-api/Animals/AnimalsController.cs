@@ -7,15 +7,10 @@ namespace TheAnimalsAPI.Animals;
 public class AnimalsController : BaseController
 {
   private readonly IRepository<Animal> _repository;
-  private readonly IValidator<CreateAnimalRequest> _createValidator;
 
-  public AnimalsController(
-    IRepository<Animal> repository,
-    IValidator<CreateAnimalRequest> createValidator
-  )
+  public AnimalsController(IRepository<Animal> repository)
   {
     _repository = repository;
-    _createValidator = createValidator;
   }
 
   [HttpGet]
@@ -41,7 +36,7 @@ public class AnimalsController : BaseController
   [HttpPost]
   public async Task<IActionResult> Create([FromBody] CreateAnimalRequest animalRequest)
   {
-    var validationResults = await _createValidator.ValidateAsync(animalRequest);
+    var validationResults = await ValidateAsync(animalRequest);
     if (!validationResults.IsValid)
     {
       foreach (var error in validationResults.Errors)
