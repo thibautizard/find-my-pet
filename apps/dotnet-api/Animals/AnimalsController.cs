@@ -7,10 +7,12 @@ namespace TheAnimalsAPI.Animals;
 public class AnimalsController : BaseController
 {
   private readonly IRepository<Animal> _repository;
+  private readonly ILogger<AnimalsController> _logger;
 
-  public AnimalsController(IRepository<Animal> repository)
+  public AnimalsController(IRepository<Animal> repository, ILogger<AnimalsController> logger)
   {
     _repository = repository;
+    _logger = logger;
   }
 
   [HttpGet]
@@ -54,15 +56,26 @@ public class AnimalsController : BaseController
   [HttpPut("{id}")]
   public IActionResult UpdateEmployee(int id, [FromBody] UpdateAnimalRequest animalRequest)
   {
+    _logger.LogInformation("Updating animal with ID: {AnimalId}", id);
     var existingAnimal = _repository.GetById(id);
     if (existingAnimal == null)
     {
+      _logger.LogWarning("Animal with ID {AnimalId} not found", id);
       return NotFound();
     }
 
     existingAnimal.Name = animalRequest.Name;
 
-    _repository.Update(existingAnimal);
-    return Ok(existingAnimal);
+    try
+    {
+      _repository.Update(existingAnimal);
+      _logger.LogInformation("Animal with ID: {AnimalId} successfully updated", id);
+      return Ok(existingAnimal);
+    }
+    catch (Exception ex)
+    {
+      _logger.LogError(ex, "An error occured while updating the animal with ID: {AnimalId}", id);
+      return StatusCode(500, "An error occured while updating the animal");
+    }
   }
 }
